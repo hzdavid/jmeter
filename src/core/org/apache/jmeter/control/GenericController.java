@@ -66,7 +66,7 @@ public class GenericController extends AbstractTestElement implements Controller
     protected transient List<TestElement> subControllersAndSamplers = new ArrayList<>();
 
     /**
-     * Index of current sub controller or sampler
+     * Index of current sub controller or sampler  控制器的计数器，
      */
     protected transient int current;
 
@@ -157,21 +157,21 @@ public class GenericController extends AbstractTestElement implements Controller
      */
     @Override
     public Sampler next() {
-        fireIterEvents();
+        fireIterEvents();//每次迭代时，都发出迭代事件，让迭代事件监听器处理.  迭代不仅仅是线程组的迭代，也可以循环控制器(loop,while,foreach)的每次循环, 迭代事件里包含了Control事件源，thread group 可以看成一个拥有迭代能力的特殊控制器，thread group的getSamplerController()返回的也是loop controller
         log.debug("Calling next on: {}", GenericController.class);
         if (isDone()) {
             return null;
         }
         Sampler returnValue = null;
         try {
-            TestElement currentElement = getCurrentElement();
+            TestElement currentElement = getCurrentElement();//控制器包含了对子节点（取样器，子控制器）的引用，getCurrentElement是返回其中一个，current是游标
             setCurrentElement(currentElement);
             if (currentElement == null) {
                 returnValue = nextIsNull();
             } else {
                 if (currentElement instanceof Sampler) {
                     returnValue = nextIsASampler((Sampler) currentElement);
-                } else { // must be a controller
+                } else { // must be a controller    进入子控制器的递归调用，即控制器执行时，也是深度优先
                     returnValue = nextIsAController((Controller) currentElement);
                 }
             }

@@ -39,7 +39,7 @@ public interface IteratingController extends LoopIterationListener {
      */
     public void breakLoop();
 
-    /**
+    /** 更新每个循环的index(即循环记数器)，是多少了
      * @param elementName Test Element
      * @param iterCount iteration count
      */

@@ -84,7 +84,7 @@ public abstract class AbstractThreadGroup extends AbstractTestElement
     /** {@inheritDoc} */
     @Override
     public Sampler next() {
-        return getSamplerController().next();
+        return getSamplerController().next(); //线程的取样器迭代器，默认是LoopController
     }
 
     /**

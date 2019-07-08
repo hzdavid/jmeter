@@ -44,7 +44,7 @@ package org.apache.jorphan.collections;
  * @see SearchByClass
  *
  */
-public interface HashTreeTraverser {
+public interface HashTreeTraverser {//对测试计划树的遍历回调，树的遍历是深度优先
     /**
      * The tree traverses itself depth-first, calling addNode for each object it
      * encounters as it goes. This is a callback method, and should not be
@@ -55,14 +55,14 @@ public interface HashTreeTraverser {
      * @param subTree
      *            the HashTree under the node encountered
      */
-    void addNode(Object node, HashTree subTree);
+    void addNode(Object node, HashTree subTree); //到达树的某个节点
 
     /**
      * Indicates traversal has moved up a step, and the visitor should remove
      * the top node from its stack structure. This is a callback method, and
      * should not be called except by a HashTree during traversal.
      */
-    void subtractNode();
+    void subtractNode();//离开树的某个节点， subtract这个动词很形象，似乎是把遍历过的节点给减掉
 
     /**
      * Process path is called when a leaf is reached. If a visitor wishes to
@@ -71,5 +71,5 @@ public interface HashTreeTraverser {
      * every {@link #subtractNode()} call. This is a callback method, and should
      * not be called except by a HashTree during traversal.
      */
-    void processPath();
+    void processPath();//到达树的叶子点，如果是叶子节点，是先回调addNode，然后再回调processPath。
 }
