@@ -19,7 +19,7 @@
 package org.apache.jmeter.testelement;
 
 import org.apache.jmeter.engine.event.LoopIterationEvent;
-
+//测试迭代监听器
 public interface TestIterationListener {
 
     /**

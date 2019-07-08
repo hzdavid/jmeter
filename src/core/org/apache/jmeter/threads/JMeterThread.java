@@ -88,7 +88,7 @@ public class JMeterThread implements Runnable, Interruptible {
 
     private static final boolean APPLY_TIMER_FACTOR = Float.compare(TIMER_FACTOR,ONE_AS_FLOAT) != 0;
 
-    private final Controller threadGroupLoopController;
+    private final Controller threadGroupLoopController;//线程组迭代控制器
 
     private final HashTree testTree;
 
@@ -153,7 +153,7 @@ public class JMeterThread implements Runnable, Interruptible {
         threadVars = new JMeterVariables();
         testTree = test;
         compiler = new TestCompiler(testTree);
-        threadGroupLoopController = (Controller) testTree.getArray()[0];
+        threadGroupLoopController = (Controller) testTree.getArray()[0]; //把当前ThreadGroup作为线程迭代控制器,
         SearchByClass<TestIterationListener> threadListenerSearcher = new SearchByClass<>(TestIterationListener.class); // TL - IS
         test.traverse(threadListenerSearcher);
         testIterationStartListeners = threadListenerSearcher.getSearchResults();
@@ -240,16 +240,16 @@ public class JMeterThread implements Runnable, Interruptible {
 
     @Override
     public void run() {
-        // threadContext is not thread-safe, so keep within thread
+        // threadContext is not thread-safe, so keep within thread， 虚拟用户的执行入口
         JMeterContext threadContext = JMeterContextService.getContext();
         LoopIterationListener iterationListener = null;
 
         try {
-            iterationListener = initRun(threadContext);
-            while (running) {
-                Sampler sam = threadGroupLoopController.next();
-                while (running && sam != null) {
-                    processSampler(sam, null, threadContext);
+            iterationListener = initRun(threadContext);//线程的每一次迭代
+            while (running) { //经历2个循环，第1个循环是每个线程的一次迭代， 而第2个循环是线程的每一次取样
+                Sampler sam = threadGroupLoopController.next(); //迭代的过程，就是让各个取样器取样的过程
+                while (running && sam != null) {//线程（虚拟用户）的执行主线就是对它包含的取样器的每次取样
+                    processSampler(sam, null, threadContext);//执行取样
                     threadContext.cleanAfterSample();
 
                     boolean lastSampleInError = TRUE.equals(threadContext.getVariables().get(LAST_SAMPLE_OK));
@@ -265,7 +265,7 @@ public class JMeterThread implements Runnable, Interruptible {
                         if(onErrorStartNextLoop && !lastSampleInError){
                             triggerLoopLogicalActionOnParentControllers(sam, threadContext, JMeterThread::continueOnThreadLoop);
                         } else {
-                            switch (threadContext.getTestLogicalAction()) {
+                            switch (threadContext.getTestLogicalAction()) {//取样完成后，测试逻辑可能会变，不一定是继续执行一个取样器
                                 case BREAK_CURRENT_LOOP:
                                     triggerLoopLogicalActionOnParentControllers(sam, threadContext, JMeterThread::breakOnCurrentLoop);
                                     break;
@@ -439,7 +439,7 @@ public class JMeterThread implements Runnable, Interruptible {
     }
 
     /**
-     * Process the current sampler, handling transaction samplers.
+     * Process the current sampler, handling transaction samplers.   取样器执行取样过程
      *
      * @param current sampler
      * @param parent sampler
@@ -485,7 +485,7 @@ public class JMeterThread implements Runnable, Interruptible {
                 executeSamplePackage(current, transactionSampler, transactionPack, threadContext);
             }
 
-            if (scheduler) {
+            if (scheduler) { //当前测试计划有没有设置调度器，如果有，检测当前线程是否应该停止了
                 // checks the scheduler to stop the iteration
                 stopSchedulerIfNeeded();
             }
@@ -532,13 +532,13 @@ public class JMeterThread implements Runnable, Interruptible {
 
         threadContext.setCurrentSampler(current);
         // Get the sampler ready to sample
-        SamplePackage pack = compiler.configureSampler(current);
-        runPreProcessors(pack.getPreProcessors());
+        SamplePackage pack = compiler.configureSampler(current);////配置取样器,就是把配置元素，配置到取样器上去，比如给HTTP取样器，设置CookieManager
+        runPreProcessors(pack.getPreProcessors());//执行取样器的前置处理器
 
         // Hack: save the package for any transaction controllers
         threadVars.putObject(PACKAGE_OBJECT, pack);
 
-        delay(pack.getTimers());
+        delay(pack.getTimers());//执行取样器的定时器
         SampleResult result = null;
         if (running) {
             Sampler sampler = pack.getSampler();
@@ -562,7 +562,7 @@ public class JMeterThread implements Runnable, Interruptible {
             threadContext.setPreviousResult(result);
             runPostProcessors(pack.getPostProcessors());
             checkAssertions(pack.getAssertions(), result, threadContext);
-            if (!result.isIgnore()) {
+            if (!result.isIgnore()) {//如果结果不忽略，即结果需要给样本监听器
                 // Do not send subsamples to listeners which receive the transaction sample
                 List<SampleListener> sampleListeners = getSampleListeners(pack, transactionPack, transactionSampler);
                 notifyListeners(sampleListeners, result);
@@ -583,7 +583,7 @@ public class JMeterThread implements Runnable, Interruptible {
             if (result.isStopTestNow() || (!result.isSuccessful() && onErrorStopTestNow)) {
                 stopTestNow();
             }
-            threadContext.setTestLogicalAction(result.getTestLogicalAction());
+            threadContext.setTestLogicalAction(result.getTestLogicalAction());//取样完成后，测试逻辑可能会变，不一定是继续执行一个取样器
         } else {
             compiler.done(pack); // Finish up
         }
@@ -924,7 +924,7 @@ public class JMeterThread implements Runnable, Interruptible {
             ex.process();
         }
     }
-
+    //取样器的前置处理器是一个列表结构
     private void runPreProcessors(List<PreProcessor> preProcessors) {
         for (PreProcessor ex : preProcessors) {
             if (log.isDebugEnabled()) {
@@ -936,7 +936,7 @@ public class JMeterThread implements Runnable, Interruptible {
     }
 
     /**
-     * Run all configured timers and sleep the total amount of time.
+     * Run all configured timers and sleep the total amount of time. 定时器的执行顺序是（自已子节点的，同一节点，父节点），
      * <p>
      * If the amount of time would amount to an ending after endTime, then
      * end the current thread by setting {@code running} to {@code false} and
@@ -948,7 +948,7 @@ public class JMeterThread implements Runnable, Interruptible {
         long totalDelay = 0;
         for (Timer timer : timers) {
             TestBeanHelper.prepare((TestElement) timer);
-            long delay = timer.delay();
+            long delay = timer.delay();//定时器计算要延迟多少毫秒
             if (APPLY_TIMER_FACTOR && timer.isModifiable()) {
                 if (log.isDebugEnabled()) {
                     log.debug("Applying TIMER_FACTOR:{} on timer:{} for thread:{}", TIMER_FACTOR,

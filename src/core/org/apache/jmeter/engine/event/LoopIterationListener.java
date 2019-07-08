@@ -27,5 +27,5 @@ public interface LoopIterationListener {
      *
      * @param iterEvent the event
      */
-    void iterationStart(LoopIterationEvent iterEvent);
+    void iterationStart(LoopIterationEvent iterEvent);//迭代事件监听器，即测试组里设置的循环次数，一次循环，即一次迭代
 }

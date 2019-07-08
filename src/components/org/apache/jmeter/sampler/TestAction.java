@@ -41,7 +41,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Dummy Sampler used to pause or stop a thread or the test;
  * intended for use in Conditional Controllers.
- *
+ * Dummy Sampler  即假的取样器，这个取样器用于暂停或停止测试
  */
 public class TestAction extends AbstractSampler implements Interruptible {
 

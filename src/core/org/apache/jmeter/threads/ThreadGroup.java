@@ -240,7 +240,7 @@ public class ThreadGroup extends AbstractThreadGroup {
                 }
                 lastThreadStartInMillis = nowInMillis;
                 startNewThread(notifier, threadGroupTree, engine, threadNum, context, nowInMillis,
-                        Math.max(0, delayForNextThreadInMillis));
+                        Math.max(0, delayForNextThreadInMillis)); //启动一个虚拟用户
             }
         }
         log.info("Started thread group number {}", groupNumber);
@@ -303,7 +303,7 @@ public class ThreadGroup extends AbstractThreadGroup {
         boolean onErrorStopThread = getOnErrorStopThread();
         boolean onErrorStartNextLoop = getOnErrorStartNextLoop();
         String groupName = getName();
-        final JMeterThread jmeterThread = new JMeterThread(cloneTree(threadGroupTree), this, notifier);
+        final JMeterThread jmeterThread = new JMeterThread(cloneTree(threadGroupTree), this, notifier);//构建某个线程（虚拟用户）的hashtree，都是克隆一份，
         jmeterThread.setThreadNum(threadNumber);
         jmeterThread.setThreadGroup(this);
         jmeterThread.setInitialContext(context);

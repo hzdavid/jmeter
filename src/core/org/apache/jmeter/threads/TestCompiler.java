@@ -97,7 +97,7 @@ public class TestCompiler implements HashTreeTraverser {
     public SamplePackage configureSampler(Sampler sampler) {
         SamplePackage pack = samplerConfigMap.get(sampler);
         pack.setSampler(sampler);
-        configureWithConfigElements(sampler, pack.getConfigs());
+        configureWithConfigElements(sampler, pack.getConfigs());//就是把配置元素，配置到取样器上去，比如给HTTP取样器，设置CookieManager
         return pack;
     }
 
@@ -154,7 +154,7 @@ public class TestCompiler implements HashTreeTraverser {
                     ObjectPair pair = new ObjectPair(child, parent);
                     synchronized (PAIRING) {// Called from multiple threads
                         if (!PAIRING.contains(pair)) {
-                            parent.addTestElement(child);
+                            parent.addTestElement(child); //父元件  下面挂了哪些子元件，保存起来。 主要用于保存一个控制器下面挂了哪些取样器，子控制器。因为控制器要控制子件的迭代次数，取样顺序
                             PAIRING.add(pair);
                         } else {
                             duplicate = true;
@@ -201,7 +201,7 @@ public class TestCompiler implements HashTreeTraverser {
         List<Assertion> assertions = new LinkedList<>();
         LinkedList<PostProcessor> posts = new LinkedList<>();
         LinkedList<PreProcessor> pres = new LinkedList<>();
-        for (int i = stack.size(); i > 0; i--) {
+        for (int i = stack.size(); i > 0; i--) {//从栈顶开始遍历，为取样器生成它的配置元件，操作器，监听器，定时器，断言，前置处理器，后置处理器，栈顶是测试计划树的叶子节点
             addDirectParentControllers(controllers, stack.get(i - 1));
             List<PreProcessor>  tempPre = new LinkedList<>();
             List<PostProcessor> tempPost = new LinkedList<>();
