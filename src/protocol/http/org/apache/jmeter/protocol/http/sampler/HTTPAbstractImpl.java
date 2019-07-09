@@ -147,21 +147,21 @@ public abstract class HTTPAbstractImpl implements Interruptible, HTTPConstantsIn
     }
 
     /**
-     * Invokes {@link HTTPSamplerBase#getAutoRedirects()}
-     *
-     * @return flag whether to do auto redirects
-     */
-    protected boolean getAutoRedirects() {
-        return testElement.getAutoRedirects();
-    }
-
-    /**
      * Invokes {@link HTTPSamplerBase#getCacheManager()}
      *
      * @return the {@link CacheManager} of the associated test element
      */
     protected CacheManager getCacheManager() {
         return testElement.getCacheManager();
+    }
+
+    /**
+     * Invokes {@link HTTPSamplerBase#getAutoRedirects()}
+     *
+     * @return flag whether to do auto redirects
+     */
+    protected boolean getAutoRedirects() {
+        return testElement.getAutoRedirects();
     }
 
     /**
