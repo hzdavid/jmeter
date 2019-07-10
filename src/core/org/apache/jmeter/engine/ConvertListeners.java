@@ -75,7 +75,7 @@ public class ConvertListeners implements HashTreeTraverser {
                     continue;
                 }
                 try {
-                    RemoteSampleListener rtl = new RemoteSampleListenerImpl(item);//在本地生成了一个RMI对象，
+                    RemoteSampleListener rtl = new RemoteSampleListenerImpl(item);//在本地生成了一个RMI监听对象，把这个对象传给jmeter-server，因此jmeter-server上的取样事件/数据就能转到本机啦
                     if (item instanceof TestStateListener && item instanceof SampleListener) { // TL - all 在这里把ResultCollector替换为包装类 RemoteListenerWrapper了
                         RemoteListenerWrapper wrap = new RemoteListenerWrapper(rtl);
                         subTree.replaceKey(item, wrap);
