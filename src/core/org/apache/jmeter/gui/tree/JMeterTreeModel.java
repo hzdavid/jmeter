@@ -60,7 +60,7 @@ public class JMeterTreeModel extends DefaultTreeModel {
     }
 
     public JMeterTreeModel() {
-        this(new TestPlanGui().createTestElement());
+        this(new TestPlanGui().createTestElement()); //
     }
 
     /**

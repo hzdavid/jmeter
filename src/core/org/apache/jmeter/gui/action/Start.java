@@ -111,7 +111,7 @@ public class Start extends AbstractAction {
     public void doAction(ActionEvent e) {
         if (e.getActionCommand().equals(ActionNames.ACTION_START)) {
             popupShouldSave(e);
-            startEngine(null, RunMode.AS_IS);
+            startEngine(null, RunMode.AS_IS);//开始测试按钮 的事件响应
         } else if (e.getActionCommand().equals(ActionNames.ACTION_START_NO_TIMERS)) {
             popupShouldSave(e);
             startEngine(null, RunMode.IGNORING_TIMERS);

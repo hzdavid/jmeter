@@ -123,7 +123,7 @@ public class LoopController extends GenericController implements Serializable, I
      */
     @Override
     public Sampler next() {
-        updateIterationIndex(getName(), loopCount);
+        updateIterationIndex(getName(), loopCount);//在当前线程THREADLOCAL中保存，迭代器的计数器（表示迭代到哪儿了。亦即for循环的次数count）
         try {
             if(endOfLoop()) {
                 if (!getContinueForever()) {

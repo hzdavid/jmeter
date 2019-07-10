@@ -51,7 +51,7 @@ public class SampleSenderFactory {
         SampleSender s;
         if (type.equalsIgnoreCase(MODE_BATCH)) {
             s = new BatchSampleSender(listener);
-        } else if (type.equalsIgnoreCase(MODE_STRIPPED_BATCH)) {
+        } else if (type.equalsIgnoreCase(MODE_STRIPPED_BATCH)) {//取样结果的返回是用BatchSampleSender
             s = new DataStrippingSampleSender(new BatchSampleSender(listener));
         } else if (type.equalsIgnoreCase(MODE_STATISTICAL)) {
             s = new StatisticalSampleSender(listener);

@@ -151,7 +151,7 @@ public class JMeterThread implements Runnable, Interruptible {
     public JMeterThread(HashTree test, JMeterThreadMonitor monitor, ListenerNotifier note) {
         this.monitor = monitor;
         threadVars = new JMeterVariables();
-        testTree = test;
+        testTree = test; //为了确保各线程（虚拟用户）的隔离性，HashTree就克隆了的
         compiler = new TestCompiler(testTree);
         threadGroupLoopController = (Controller) testTree.getArray()[0]; //把当前ThreadGroup作为线程迭代控制器,
         SearchByClass<TestIterationListener> threadListenerSearcher = new SearchByClass<>(TestIterationListener.class); // TL - IS
@@ -243,7 +243,7 @@ public class JMeterThread implements Runnable, Interruptible {
         // threadContext is not thread-safe, so keep within thread， 虚拟用户的执行入口
         JMeterContext threadContext = JMeterContextService.getContext();
         LoopIterationListener iterationListener = null;
-
+        //JMETER线程（某个虚拟用户）的运行过程：不断从控制器获取取样器(controller.next方法)，执行取样器的过程。controller.next 是深度优先，即优先让子controller.next先运行
         try {
             iterationListener = initRun(threadContext);//线程的每一次迭代
             while (running) { //经历2个循环，第1个循环是每个线程的一次迭代， 而第2个循环是线程的每一次取样

@@ -118,7 +118,7 @@ public interface JMeterGUIComponent extends ClearGui {
      *
      * @return the Test Element object that the GUI component represents.
      */
-    TestElement createTestElement();
+    TestElement createTestElement();//这个GUI组件对应的测试元件是是什么，是哪个取样器，还是哪个监听器，等等。
 
     /**
      * GUI components are responsible for populating TestElements they create

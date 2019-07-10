@@ -40,7 +40,7 @@ import org.apache.jorphan.util.JMeterError;
 public class ListedHashTree extends HashTree implements Serializable, Cloneable {
     private static final long serialVersionUID = 240L;
 
-    private final List<Object> order;
+    private final List<Object> order;//存放的是HASHTREE的KEY，即元件节点对象
 
     public ListedHashTree() {
         super();

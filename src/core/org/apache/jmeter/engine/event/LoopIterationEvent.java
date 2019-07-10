@@ -27,7 +27,7 @@ import org.apache.jmeter.testelement.TestElement;
 public class LoopIterationEvent {
     private final int iteration;
 
-    private final TestElement source;
+    private final TestElement source;//迭代事件源，比如thread group,  controller
 
     public LoopIterationEvent(TestElement source, int iter) {
         iteration = iter;

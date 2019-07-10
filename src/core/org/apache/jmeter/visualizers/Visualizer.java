@@ -29,7 +29,7 @@ import org.apache.jmeter.samplers.SampleResult;
  * {@link org.apache.jmeter.visualizers.gui.AbstractVisualizer} class.
  *
  */
-public interface Visualizer {
+public interface Visualizer {//所有可视化监听器GUI对象要实现的接口
     /**
      * This method is called by sampling thread to inform the visualizer about
      * the arrival of a new sample.

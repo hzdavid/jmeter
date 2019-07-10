@@ -33,7 +33,7 @@ import org.apache.jmeter.gui.GuiPackage;
 import org.apache.jmeter.threads.RemoteThreadsListenerTestElement;
 import org.apache.jmeter.util.JMeterUtils;
 import org.apache.jorphan.collections.HashTree;
-
+//响应远程执行JMETER事件
 public class RemoteStart extends AbstractAction {
 
     private static final String LOCAL_HOST = "127.0.0.1"; // NOSONAR $NON-NLS-1$
@@ -77,7 +77,7 @@ public class RemoteStart extends AbstractAction {
             popupShouldSave(e);
             HashTree testTree = getTestTree();
             if ( popupCheckExistingFileListener(testTree) ) {
-                distributedRunner.init(Arrays.asList(name), testTree);
+                distributedRunner.init(Arrays.asList(name), testTree);//远端测试计划运行器初始化，主要完成ClientJmeterEngie的创建
                 distributedRunner.start(Arrays.asList(name));
             }
         } else if (action.equals(ActionNames.REMOTE_START_ALL)) {

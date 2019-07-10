@@ -132,4 +132,5 @@ public class RemoteSampleListenerImpl extends java.rmi.server.UnicastRemoteObjec
             sampleListener.sampleStopped(e);
         }
     }
+
 }

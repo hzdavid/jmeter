@@ -105,7 +105,7 @@ import org.apache.jorphan.util.JOrphanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
+/**   jmeter主界面
  * The main JMeter frame, containing the menu bar, test tree, and an area for
  * JMeter component GUIs.
  */
@@ -143,7 +143,7 @@ public class MainFrame extends JFrame implements TestStateListener, Remoteable, 
     private LoggerPanel logPanel;
 
     /** The test tree. */
-    private JTree tree;
+    private JTree tree;//左侧测试计划树
 
     private final String iconSize = JMeterUtils.getPropDefault(JMeterToolBar.TOOLBAR_ICON_SIZE, JMeterToolBar.DEFAULT_TOOLBAR_ICON_SIZE);
 

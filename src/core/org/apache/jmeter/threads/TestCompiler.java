@@ -134,7 +134,7 @@ public class TestCompiler implements HashTreeTraverser {
             log.debug("Subtracting node, stack size = {}", stack.size());
         }
         TestElement child = stack.getLast();
-        trackIterationListeners(stack);
+        trackIterationListeners(stack);//找迭代监听器，
         if (child instanceof Sampler) {
             saveSamplerConfigs((Sampler) child);
         }

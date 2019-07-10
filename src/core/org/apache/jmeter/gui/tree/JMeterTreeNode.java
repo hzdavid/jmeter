@@ -39,7 +39,7 @@ import org.apache.jmeter.testbeans.TestBean;
 import org.apache.jmeter.testelement.TestElement;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+//主侧测试树的节点对象
 public class JMeterTreeNode extends DefaultMutableTreeNode implements NamedTreeNode {
     private static final long serialVersionUID = 241L;
 
@@ -59,7 +59,7 @@ public class JMeterTreeNode extends DefaultMutableTreeNode implements NamedTreeN
         // no longer a GUI component?
         this(null, null);
     }
-
+    //userObj才是这个节点上存放的数据，
     public JMeterTreeNode(TestElement userObj, JMeterTreeModel treeModel) {
         super(userObj);
         this.treeModel = Optional.ofNullable(treeModel);

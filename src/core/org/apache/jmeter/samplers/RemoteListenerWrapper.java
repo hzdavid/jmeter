@@ -92,7 +92,7 @@ public class RemoteListenerWrapper extends AbstractTestElement implements Sample
 
     @Override
     public void sampleOccurred(SampleEvent e) {
-        sender.sampleOccurred(e);
+        sender.sampleOccurred(e); //sender默认是DataStrippingSampleSender
     }
 
     // Note that sampleStarted() and sampleStopped() is not made to appear

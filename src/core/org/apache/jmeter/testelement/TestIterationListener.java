@@ -19,7 +19,7 @@
 package org.apache.jmeter.testelement;
 
 import org.apache.jmeter.engine.event.LoopIterationEvent;
-//测试迭代监听器
+//测试迭代监听器, 即线程组设置的迭代，
 public interface TestIterationListener {
 
     /**
@@ -31,5 +31,5 @@ public interface TestIterationListener {
      *
      * @param event the iteration event
      */
-    void testIterationStart(LoopIterationEvent event);
+    void testIterationStart(LoopIterationEvent event);//
 }

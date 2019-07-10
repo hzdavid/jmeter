@@ -73,7 +73,7 @@ public class JMeterMenuBar extends JMenuBar implements LocaleChangeListener {
     private JMenu editMenu;
     private JMenu editAdd;
     private JMenu runMenu;
-    private JMenuItem runStart;
+    private JMenuItem runStart;//开始测试按钮
     private JMenuItem runStartNoTimers;
     private JMenu remoteStart;
     private Collection<JMenuItem> remoteEngineStart;
@@ -809,7 +809,7 @@ public class JMeterMenuBar extends JMenuBar implements LocaleChangeListener {
         menuItem.setName(resource);
         menuItem.setActionCommand(actionCommand);
         menuItem.setAccelerator(keyStroke);
-        menuItem.addActionListener(ActionRouter.getInstance());
+        menuItem.addActionListener(ActionRouter.getInstance());//所有事件处理器的Router
         return menuItem;
     }
 
