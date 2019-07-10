@@ -150,7 +150,7 @@ public class ClientJMeterEngine implements JMeterEngine {
             synchronized(LOCK)
             {
                 methodName="rconfigure()"; // NOSONAR Used for tracing
-                remote.rconfigure(testTree, hostAndPort, baseDirRelative, scriptName);
+                remote.rconfigure(testTree, hostAndPort, baseDirRelative, scriptName);//调用 RemoteJMeterEngineImpl.rconfigure  让远程jmeter-server做一些配置工作
             }
             log.info("sent test to {} basedir='{}'", hostAndPort, baseDirRelative); // $NON-NLS-1$
             if(savep == null) {

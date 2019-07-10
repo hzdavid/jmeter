@@ -52,7 +52,7 @@ public abstract class AbstractTestElement implements TestElement, Serializable, 
     private static final long serialVersionUID = 241L;
 
     private static final Logger log = LoggerFactory.getLogger(AbstractTestElement.class);
-
+    //存在测试元件的一些额外属性，比如该元件对应的GUI类是什么
     private final Map<String, JMeterProperty> propMap =
         Collections.synchronizedMap(new LinkedHashMap<String, JMeterProperty>());
 

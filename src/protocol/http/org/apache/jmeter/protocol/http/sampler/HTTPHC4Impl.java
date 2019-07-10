@@ -566,7 +566,7 @@ public class HTTPHC4Impl extends HTTPHCAbstractImpl {
         setupClientContextBeforeSample(jMeterVariables, localContext);
 
         res.sampleStart();
-
+        //如果已经缓存过，就从本地THREADLOCAL缓存中取结果了
         final CacheManager cacheManager = getCacheManager();
         if (cacheManager != null && HTTPConstants.GET.equalsIgnoreCase(method) && cacheManager.inCache(url, httpRequest.getAllHeaders())) {
             return updateSampleResultForResourceInCache(res);
@@ -660,7 +660,7 @@ public class HTTPHC4Impl extends HTTPHCAbstractImpl {
             // Store any cookies received in the cookie manager:
             saveConnectionCookies(httpResponse, res.getURL(), getCookieManager());
 
-            // Save cache information
+            // Save cache information     把取样结果用缓存管理器来缓存
             if (cacheManager != null){
                 cacheManager.saveDetails(httpResponse, res);
             }

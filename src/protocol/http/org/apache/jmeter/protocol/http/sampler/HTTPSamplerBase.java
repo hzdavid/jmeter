@@ -696,7 +696,7 @@ public abstract class HTTPSamplerBase extends AbstractSampler
         return getArguments().getArgumentCount() > 0;
     }
 
-    @Override
+    @Override //把一些配置元件 加入到 HTTP取样器中, 如果配置元件配置了多个，则会给打印WARN信息
     public void addTestElement(TestElement el) {
         if (el instanceof CookieManager) {
             setCookieManager((CookieManager) el);

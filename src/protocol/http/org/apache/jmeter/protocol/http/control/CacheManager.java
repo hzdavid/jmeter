@@ -203,7 +203,7 @@ public class CacheManager extends ConfigTestElement implements TestStateListener
         return new ImmutablePair<>(headerName, values.toString());
     }
 
-    /**
+    /**  提取HTTP响应头中的缓存信息,并保存到THREADLOCAL
      * Save the Last-Modified, Etag, and Expires headers if the result is
      * cacheable. Version for Apache HttpClient implementation.
      *

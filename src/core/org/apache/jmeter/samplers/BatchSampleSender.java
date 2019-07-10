@@ -30,7 +30,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Implements batch reporting for remote testing.
- *
+ *  jmeter-server把取样数据发回给本机
  */
 public class BatchSampleSender extends AbstractSampleSender implements Serializable {
     private static final Logger log = LoggerFactory.getLogger(BatchSampleSender.class);
@@ -55,7 +55,7 @@ public class BatchSampleSender extends AbstractSampleSender implements Serializa
     private final long clientConfiguredTimeThresholdMs =
             JMeterUtils.getPropDefault("time_threshold", DEFAULT_TIME_THRESHOLD); // $NON-NLS-1$
 
-    private final RemoteSampleListener listener;
+    private final RemoteSampleListener listener;//这个是一个远程RMI对象
 
     private final List<SampleEvent> sampleStore = new ArrayList<>();
 
@@ -180,7 +180,7 @@ public class BatchSampleSender extends AbstractSampleSender implements Serializa
         if (clonedStore != null){
             try {
                 log.debug("Firing sample");
-                listener.processBatch(clonedStore);
+                listener.processBatch(clonedStore);//listener可是一个远程RMI对象（即JMETER GUI界面所在机器，或者分发测试计划的CLIENT机），这样JMETER-SERVRER的取样数据，就可以不断发送给CLIENT机了
                 clonedStore.clear();
             } catch (RemoteException err) {
                 log.error("sampleOccurred", err);

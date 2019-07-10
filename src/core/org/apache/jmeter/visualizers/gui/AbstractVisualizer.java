@@ -119,7 +119,7 @@ public abstract class AbstractVisualizer
     /* A checkbox choosing whether or not only successes should be logged. */
     private final JCheckBox successOnlyLogging;
 
-    protected ResultCollector collector = new ResultCollector();
+    protected ResultCollector collector = new ResultCollector();//可视化的GUI组件对应的测试元件，ResultCollector包含了取样器的结果
 
     protected boolean isStats = false;
 
@@ -261,7 +261,7 @@ public abstract class AbstractVisualizer
     @Override
     public TestElement createTestElement() {
         if (collector == null) {
-            collector = new ResultCollector();
+            collector = new ResultCollector();//看见没，可视化的监听器GUI对应的测试元件是ResultCollection
         }
         modifyTestElement(collector);
         return (TestElement) collector.clone();

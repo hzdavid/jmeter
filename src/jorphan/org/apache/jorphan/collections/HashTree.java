@@ -55,7 +55,7 @@ public class HashTree implements Serializable, Map<Object, HashTree>, Cloneable 
     private static final String FOUND = "found"; // $NON-NLS-1$
 
     // N.B. The keys can be either JMeterTreeNode or TestElement
-    protected final Map<Object, HashTree> data;
+    protected final Map<Object, HashTree> data;//递归定义，key就是左侧菜单的元件， value就是另一颗树
 
     /**
      * Creates an empty new HashTree.

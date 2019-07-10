@@ -389,7 +389,7 @@ public class GenericController extends AbstractTestElement implements Controller
     protected void fireIterEvents() {
         if (isFirst()) {
             fireIterationStart();
-            first = false; // TODO - should this use setFirst() ?
+            first = false; // TODO - should this use setFirst() ?   是的， 因为FIRE的是迭代开始事件，而不是每次迭代事件
         }
     }
 

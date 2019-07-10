@@ -99,7 +99,7 @@ public class DataStrippingSampleSender extends AbstractSampleSender implements S
                 stripResponse(subResult);
             }
         }
-        if(decoratedSender == null)
+        if(decoratedSender == null)//样本数据发送装饰对象默认是BatchSamplerSender
         {
             try {
                 listener.sampleOccurred(event);
@@ -109,7 +109,7 @@ public class DataStrippingSampleSender extends AbstractSampleSender implements S
         }
         else
         {
-            decoratedSender.sampleOccurred(event);
+            decoratedSender.sampleOccurred(event); //样本数据发送装饰对象默认是BatchSamplerSender
         }
     }
 

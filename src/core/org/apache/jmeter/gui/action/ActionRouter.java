@@ -69,7 +69,7 @@ public final class ActionRouter implements ActionListener {
     public void actionPerformed(final ActionEvent e) {
         SwingUtilities.invokeLater(() -> performAction(e));
     }
-
+    //GUI事件的响应入口
     private void performAction(final ActionEvent e) {
         String actionCommand = e.getActionCommand();
         if(!NO_TRANSACTION_ACTIONS.contains(actionCommand)) {

@@ -126,8 +126,8 @@ public class DistributedRunner {
         println("Starting remote engines");
         long now = System.currentTimeMillis();
         println("Starting the test @ " + new Date(now) + " (" + now + ")");
-        for (String address : addresses) {
-            try {
+        for (String address : addresses) {//有几个远程jmeter-server，就依次把请求发给他们。
+            try {//用ClientJMeterEngine 这个引擎去运行当前TEST（即把当前TEST），即通过RMI调用把请求发给RemoteJMeterEngine，
                 if (engines.containsKey(address)) {
                     engines.get(address).runTest();
                 } else {

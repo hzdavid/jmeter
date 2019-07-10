@@ -43,7 +43,7 @@ import org.slf4j.LoggerFactory;
  * them with RemoteSampleListeners so that the samples are returned to the client.
  *
  * N.B. Does not handle ThreadListeners.
- *
+ *   就是这个遍历器，对监听器做了特殊处理，以让远程JmeterServer的取样器的取样结果，返回到本机来
  */
 public class ConvertListeners implements HashTreeTraverser {
     private static final Logger log = LoggerFactory.getLogger(ConvertListeners.class);
@@ -75,8 +75,8 @@ public class ConvertListeners implements HashTreeTraverser {
                     continue;
                 }
                 try {
-                    RemoteSampleListener rtl = new RemoteSampleListenerImpl(item);
-                    if (item instanceof TestStateListener && item instanceof SampleListener) { // TL - all
+                    RemoteSampleListener rtl = new RemoteSampleListenerImpl(item);//在本地生成了一个RMI对象，
+                    if (item instanceof TestStateListener && item instanceof SampleListener) { // TL - all 在这里把ResultCollector替换为包装类 RemoteListenerWrapper了
                         RemoteListenerWrapper wrap = new RemoteListenerWrapper(rtl);
                         subTree.replaceKey(item, wrap);
                     } else if (item instanceof TestStateListener) {
