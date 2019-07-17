@@ -189,4 +189,5 @@ else
     ARGS=""
 fi
 
-"$JAVA_HOME/bin/java" $ARGS $JVM_ARGS $JMETER_OPTS -jar "$PRGDIR/ApacheJMeter.jar" "$@"
+debugargs=" -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=3999"
+"$JAVA_HOME/bin/java" $ARGS $JVM_ARGS $debugargs  $JMETER_OPTS -jar "$PRGDIR/ApacheJMeter.jar" "$@"

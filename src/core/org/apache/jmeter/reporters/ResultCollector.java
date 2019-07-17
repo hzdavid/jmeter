@@ -545,7 +545,7 @@ public class ResultCollector extends AbstractListenerElement implements SampleLi
         SampleResult result = event.getResult();
 
         if (isSampleWanted(result.isSuccessful())) {
-            sendToVisualizer(result);
+            sendToVisualizer(result);//把取样器结果给可视化监听器
             if (out != null && !isResultMarked(result) && !this.isStats) {
                 SampleSaveConfiguration config = getSaveConfig();
                 result.setSaveConfig(config);
