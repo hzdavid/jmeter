@@ -62,7 +62,7 @@ import org.apache.jorphan.gui.GuiUtils;
 import org.apache.jorphan.reflect.ClassFinder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+//菜单工厂，点右键后的菜单
 public final class MenuFactory {
     private static final Logger log = LoggerFactory.getLogger(MenuFactory.class);
 

@@ -93,7 +93,7 @@ public final class NewDriver {
          * later
          */
         boolean usesUNC = OS_NAME_LC.startsWith("windows");// $NON-NLS-1$
-
+         //程序一启动，DynamicClassLoader就加载了lib/，lib/ext, lib/junit目录下的JAR包
         // Add standard jar locations to initial classpath
         StringBuilder classpath = new StringBuilder();
         File[] libDirs = new File[] { new File(JMETER_INSTALLATION_DIRECTORY + File.separator + "lib"),// $NON-NLS-1$ $NON-NLS-2$
@@ -229,7 +229,7 @@ public final class NewDriver {
 
     /**
      * The main program which actually runs JMeter.
-     *
+     *  程序的总入口
      * @param args
      *            the command line arguments
      */

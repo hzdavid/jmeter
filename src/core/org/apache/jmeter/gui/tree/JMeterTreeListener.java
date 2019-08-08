@@ -232,7 +232,7 @@ public class JMeterTreeListener implements TreeSelectionListener, MouseListener,
     private boolean isRightClick(MouseEvent e) {
         return e.isPopupTrigger() || (InputEvent.BUTTON2_MASK & e.getModifiers()) > 0 || (InputEvent.BUTTON3_MASK == e.getModifiers());
     }
-
+     //打开右键菜单
     private void displayPopUp(MouseEvent e) {
         JPopupMenu pop = getCurrentNode().createPopupMenu();
         GuiPackage.getInstance().displayPopUp(e, pop);

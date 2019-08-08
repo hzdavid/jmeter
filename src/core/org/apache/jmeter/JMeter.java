@@ -542,7 +542,7 @@ public class JMeter implements JMeterPlugin {
                     generator.generate();
                 } else if (parser.getArgumentById(NONGUI_OPT) == null) { // not non-GUI => GUI
                     startGui(testFile);
-                    startOptionalServers();
+                    startOptionalServers();//可以把beanshell Server， Http镜像服务器启动
                 } else { // NON-GUI must be true
                     extractAndSetReportOutputFolder(parser, deleteResultFile);
 
@@ -611,7 +611,7 @@ public class JMeter implements JMeterPlugin {
             System.out.println("Version " + JMeterUtils.getJMeterVersion());//NOSONAR
         }
     }
-
+    //自定义的类路径，也是用NewDriver的DynamicClassLoader 加载的，所以无论jAR放在哪，本质并没有什么不同
     // Update classloader if necessary
     private void updateClassLoader() throws MalformedURLException {
         updatePath("search_paths",";", true); //$NON-NLS-1$//$NON-NLS-2$

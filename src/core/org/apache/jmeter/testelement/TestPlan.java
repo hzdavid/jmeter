@@ -262,8 +262,8 @@ public class TestPlan extends AbstractTestElement implements Serializable, TestS
         // we set the classpath
         String[] paths = this.getTestPlanClasspathArray();
         for (String path : paths) {
-            try {
-                NewDriver.addURL(path);
+            try {//在测试开始时，把测试计划里用户设置的JAR路径也放到当前的CLASSLOADER来，可以看出JMETER自身CLASSLOADER与测试计划的是一个，
+                NewDriver.addURL(path);//并没有做隔离
                 log.info("added {} to classpath", path);
             } catch (MalformedURLException e) {
                 // TODO Should we continue the test or fail ?

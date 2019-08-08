@@ -375,7 +375,7 @@ public class StandardJMeterEngine implements JMeterEngine, Runnable {
         // Merge in any additional test listeners
         // currently only used by the function parser
         testListeners.getSearchResults().addAll(testList);
-        testList.clear(); // no longer needed
+        testList.clear(); // no longer neededT
 
         test.traverse(new TurnElementsOn());
         notifyTestListenersOfStart(testListeners);

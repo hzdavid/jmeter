@@ -84,7 +84,7 @@ public abstract class BeanShellTestElement extends AbstractTestElement
 
         JMeterContext jmctx = JMeterContextService.getContext();
         JMeterVariables vars = jmctx.getVariables();
-
+        //给BEANSHELL 脚步传的全局变量
         try {
             bshInterpreter.set("ctx", jmctx);//$NON-NLS-1$
             bshInterpreter.set("Label", getName()); //$NON-NLS-1$

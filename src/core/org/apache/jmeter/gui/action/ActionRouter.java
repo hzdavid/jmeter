@@ -85,7 +85,7 @@ public final class ActionRouter implements ActionListener {
             for (Command c : commands.get(actionCommand)) {
                 try {
                     preActionPerformed(c.getClass(), e);
-                    c.doAction(e);
+                    c.doAction(e);//添加节点到测试计划树的命令类是AddToTree
                     postActionPerformed(c.getClass(), e);
                 } catch (IllegalUserActionException err) {
                     String msg = err.getMessage();
